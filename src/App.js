@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Movie from './Movie';
+
+const movies = [
+  {
+    id: 1,
+    title: 'Star Wars'
+  },
+  {
+    id: 2,
+    title: 'Spider Cat'
+  },
+  {
+    id: 3,
+    title: '36th Chamber of Shaolin'
+  },
+  {
+    id: 4,
+    title: 'Slow and Furious III'
+  }
+];
 
 class App extends Component {
 /*
@@ -26,49 +46,18 @@ class App extends Component {
   }
   */
 
-  state = {
-    input : 'Hello'
-  }
-
-  updateInput = (event) => {
-    this.setState({
-      input: event.target.value.trim()
-    })
-  }
-
-  submit = () => {                //arrow function allows us to use this eyword refering to component itself
-    console.log(this.text.value);
-  }
-
   render() {
-      return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <Welcome text="Welcome to React.js 16 course"/>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-          <h3>{this.state.input}</h3>
-          {/*updateInput accepts event itself as an argument */}
-          <input type="text" onChange={this.updateInput} value={this.state.input}/>
-          <input type="text" ref={(input) => this.text = input }/>
-          {/* assigning a DOM element to a property on your component */}
-          <button onClick={this.submit}>Show Value</button>
-        </div>
-      );
-  }
-}
-
-
-class Welcome extends Component {
-  render(){
-      const { text } = this.props;
-      return(
-        <h2 className="App-title">{text}</h2>
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        {movies.map(movie=> <Movie key={movie.id} movie={movie} />)}
+        {/* iterates over movies array, maps it, taking each movie element and returns a <Movie> component where that movie is passed in!  */}
+      </div>
     );
   }
 }
+
 
 export default App;
