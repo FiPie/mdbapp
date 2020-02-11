@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-
+/*
   constructor(props) {            //component constructor, often used for setting states but we are doing that via state object here
     super(props);
     console.log('constructor');
@@ -24,11 +24,20 @@ class App extends Component {
   state = {                       //state object
     toggle:true                   //default value of 'state' variable named 'toggle' is set to 'true' upon creation of this component
   }
+  */
 
-  toggle = () => {                //arrow function
-    this.setState({               //a method on a react component that updates our state, it takes in an object and changes the value of a property within this object
-      toggle: !this.state.toggle  //we're changing the toggle state to it's opposite value
+  state = {
+    input : 'Hello'
+  }
+
+  updateInput = (event) => {
+    this.setState({
+      input: event.target.value.trim()
     })
+  }
+
+  submit = () => {                //arrow function allows us to use this eyword refering to component itself
+    console.log(this.text.value);
   }
 
   render() {
@@ -36,15 +45,17 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <Welcome text="Welcome to React.js 16 course for almost everyone by Scott Tolinsky" toggle={this.state.toggle}/>
+            <Welcome text="Welcome to React.js 16 course"/>
           </header>
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
-          <button onClick={this.toggle}>Show / Hide</button>    //we're calling method this.toggle on click event
-          {this.state.toggle &&                                 //inline conditional statement, if this.state.toggle is true
-            <p>This should show and hide</p>
-          }
+          <h3>{this.state.input}</h3>
+          {/*updateInput accepts event itself as an argument */}
+          <input type="text" onChange={this.updateInput} value={this.state.input}/>
+          <input type="text" ref={(input) => this.text = input }/>
+          {/* assigning a DOM element to a property on your component */}
+          <button onClick={this.submit}>Show Value</button>
         </div>
       );
   }
@@ -53,8 +64,7 @@ class App extends Component {
 
 class Welcome extends Component {
   render(){
-      const { text, toggle } = this.props;
-      console.log(toggle);
+      const { text } = this.props;
       return(
         <h2 className="App-title">{text}</h2>
     );
