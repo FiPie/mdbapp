@@ -10,20 +10,19 @@ export default class Movie extends Component {
       /* is Required will ensure that the prop value be supplied*/
       title: PropTypes.string.isRequired,
 
-    }),
-    desc: PropTypes.string
+    })
   }
 
   /*in case the props is not supplied (and not required) the default prop vaule should be set*/
-  static defaultProps = {
-    desc: 'Description not available'
-  }
+  // static defaultProps = {
+  //   desc: 'Description not available'
+  // }
 
   render(){
     return (
       <div>
         <h3>{this.props.movie.title}</h3>
-        <p>{this.props.desc}</p>
+
       </div>
     )
   }

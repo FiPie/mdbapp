@@ -1,27 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Movie from './Movie';
 
-const movies = [
-  {
-    id: 1,
-    title: 'Star Wars',
-    desc: 'space movie'
-  },
-  {
-    id: 2,
-    title: 'Spider Cat'
-  },
-  {
-    id: 3,
-    title: '36th Chamber of Shaolin'
-  },
-  {
-    id: 4,
-    title: 'Slow and Furious III'
-  }
-];
+import Movie from './Movie';
 
 class App extends Component {
 /*
@@ -46,6 +27,25 @@ class App extends Component {
     toggle:true                   //default value of 'state' variable named 'toggle' is set to 'true' upon creation of this component
   }
   */
+  state = {
+    movies : []
+  }
+
+  // async allows using the await
+  async componentDidMount() {
+    try {
+      // API setup
+      const res = await fetch( 'https://api.themoviedb.org/3/discover/movie?api_key=4ae9f623fe5e58b8ff17c7a60c779bd6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
+      // changing result to json format
+      const movies = await res.json();
+      // updating the state
+      this.setState({
+        movies : movies.results
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   render() {
     return (
@@ -53,8 +53,8 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        {movies.map(movie=> <Movie key={movie.id} movie={movie} desc={movie.desc} />)}
-        {/* iterates over movies array, maps it, taking each movie element and returns a <Movie> component where that movie is passed in!  */}
+        {this.state.movies.map(movie=> <Movie key={movie.id} movie={movie} />)}
+        {/* iterates over movies json object, maps it with movie.id, takes each movie element and returns a <Movie> component where that movie is passed in!  */}
       </div>
     );
   }
