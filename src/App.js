@@ -6,7 +6,8 @@ import Movie from './Movie';
 const movies = [
   {
     id: 1,
-    title: 'Star Wars'
+    title: 'Star Wars',
+    desc: 'space movie'
   },
   {
     id: 2,
@@ -52,7 +53,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        {movies.map(movie=> <Movie key={movie.id} movie={movie} />)}
+        {movies.map(movie=> <Movie key={movie.id} movie={movie} desc={movie.desc} />)}
         {/* iterates over movies array, maps it, taking each movie element and returns a <Movie> component where that movie is passed in!  */}
       </div>
     );
